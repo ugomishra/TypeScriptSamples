@@ -6,3 +6,10 @@ block header
       li
         a(href= item.href)
           b= item.name
+
+block footer
+    ul
+    - each item in feet
+      li
+        a(href= item.href)
+          b= item.name                    

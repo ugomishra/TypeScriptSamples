@@ -3,6 +3,7 @@ var http = require("http");
 var url = require("url");
 var express = require("express");
 var bodyParser = require("body-parser");
+var async = require("async");
 var errorHandler = require("errorhandler");
 var methodOverride = require("method-override");
 var routes = require("./routes/index");
@@ -23,8 +24,20 @@ if (env === 'development') {
 }
 // set menu
 app.use(function (req, res, next) {
-    globals.getMenu(function (menus) {
-        app.locals.menus = menus;
+    async.parallel([
+        function (callback) {
+            globals.getMenu(function (menus) {
+                app.locals.menus = menus;
+                callback();
+            });
+        },
+        function (callback) {
+            globals.getFooter(function (feet) {
+                app.locals.feet = feet;
+                callback();
+            });
+        }], function (err, results) {
+        console.log(err);
         next();
     });
 });

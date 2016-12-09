@@ -2,6 +2,7 @@ import * as http from "http";
 import * as url from "url";
 import * as express from "express";
 import * as bodyParser from "body-parser";
+import * as async from "async";
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 
@@ -28,10 +29,22 @@ if (env === 'development') {
 
 // set menu
 app.use(function(req, res, next){
-    globals.getMenu(function(menus){
-        app.locals.menus = menus;
+    async.parallel([
+    function(callback) { 
+        globals.getMenu(function(menus){
+            app.locals.menus = menus;
+            callback();
+        })
+    },
+    function(callback) {
+        globals.getFooter(function(feet){
+            app.locals.feet = feet;
+            callback();
+        })
+    }], function(err, results) {
+        console.log(err);
         next();
-    })
+    });    
 })
 
 

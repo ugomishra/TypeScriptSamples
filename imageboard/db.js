@@ -36,6 +36,22 @@ function getMenus(callback) {
     });
 }
 exports.getMenus = getMenus;
+function getFeet(callback) {
+    db.collection('feet', function (error, feet_collection) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        feet_collection.find({}, { '_id': 1, 'href': 1, 'name': 1 }).toArray(function (error, footobjs) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            callback(footobjs);
+        });
+    });
+}
+exports.getFeet = getFeet;
 function getUsers(callback) {
     db.collection('users', function (error, users_collection) {
         if (error) {

@@ -20,6 +20,12 @@ export interface Menu {
     name: string;
 }
 
+export interface Foot {
+    _id: string;
+    link: string;
+    name: string;
+}
+
 export interface Board {
     title: string;
     description: string;
@@ -52,6 +58,16 @@ export function getMenus(callback: (menus: Menu[]) => void) {
         menus_collection.find({}, { '_id': 1, 'href': 1, 'name': 1 }).toArray(function(error, menuobjs) {
            if(error) { console.error(error); return; }
            callback(menuobjs);
+        });
+    });
+}
+
+export function getFeet(callback: (feet: Foot[]) => void) {
+    db.collection('feet', function(error, feet_collection) {
+        if(error) { console.error(error); return; }
+        feet_collection.find({}, { '_id': 1, 'href': 1, 'name': 1 }).toArray(function(error, footobjs) {
+           if(error) { console.error(error); return; }
+           callback(footobjs);
         });
     });
 }
