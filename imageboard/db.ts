@@ -14,6 +14,12 @@ export interface User {
     boards: Board[];
 }
 
+export interface Menu {
+    _id: string;
+    link: string;
+    name: string;
+}
+
 export interface Board {
     title: string;
     description: string;
@@ -36,6 +42,16 @@ export function getUser(id: string, callback: (user: User) => void) {
         users.find({_id: id}).batchSize(10).nextObject(function(error, user) {
             if(error) { console.error(error); return; }
             callback(user);
+        });
+    });
+}
+
+export function getMenus(callback: (menus: Menu[]) => void) {
+    db.collection('menus', function(error, menus_collection) {
+        if(error) { console.error(error); return; }
+        menus_collection.find({}, { '_id': 1, 'href': 1, 'name': 1 }).toArray(function(error, menuobjs) {
+           if(error) { console.error(error); return; }
+           callback(menuobjs);
         });
     });
 }

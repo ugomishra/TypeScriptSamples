@@ -7,6 +7,7 @@ import methodOverride = require("method-override");
 
 import * as routes from "./routes/index";
 import * as db from "./db";
+import * as globals from "./globals/index";
 
 var app = express();
 
@@ -24,6 +25,14 @@ var env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
     app.use(errorHandler());
 }
+
+// set menu
+app.use(function(req, res, next){
+    globals.getMenu(function(menus){
+        app.locals.menus = menus;
+        next();
+    })
+})
 
 
 // Routes
