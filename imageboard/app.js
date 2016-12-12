@@ -1,9 +1,11 @@
+/// <reference path="globals/_.d.ts" />
 "use strict";
 var http = require("http");
 var url = require("url");
 var express = require("express");
 var bodyParser = require("body-parser");
 var async = require("async");
+var session = require("express-session");
 var errorHandler = require("errorhandler");
 var methodOverride = require("method-override");
 var routes = require("./routes/index");
@@ -11,6 +13,11 @@ var db = require("./db");
 var globals = require("./globals/index");
 var app = express();
 // Configuration
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set('view options', { layout: false });
@@ -22,6 +29,13 @@ var env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
     app.use(errorHandler());
 }
+//authenticate users
+app.use(function (req, res, next) {
+    if (!req.session.user_id) {
+        res.render('login', {});
+    }
+    next();
+});
 // set menu
 app.use(function (req, res, next) {
     async.parallel([
@@ -43,6 +57,8 @@ app.use(function (req, res, next) {
 });
 // Routes
 app.get('/', routes.index);
+//login
+app.get('/login', routes.login);
 app.get('/findImages', function (req, res) {
     console.log('getting images from' + req.query['url']);
     var req2 = http.get(url.parse(req.query['url']), function (urlMessage) {

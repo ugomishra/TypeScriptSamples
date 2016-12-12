@@ -52,6 +52,18 @@ export function getUser(id: string, callback: (user: User) => void) {
     });
 }
 
+export function createUser(user ,callback: (user: User) => void) {
+    // db.collection('users',)
+}
+
+export function checkUser(userbody ,callback: (auth: Boolean) => void) {
+    db.collection('user', function(error, users){
+        if(error) { console.error(error); return; }
+        let user = users.find({name: userbody.name, pass: userbody.password});
+        console.log(user);
+    })
+}
+
 export function getMenus(callback: (menus: Menu[]) => void) {
     db.collection('menus', function(error, menus_collection) {
         if(error) { console.error(error); return; }

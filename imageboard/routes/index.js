@@ -8,4 +8,12 @@ function index(req, res) {
 }
 exports.index = index;
 ;
+function login(req, res) {
+    console.log(req.body);
+    db.checkUser({}, function (auth) {
+        console.dir(auth);
+    });
+}
+exports.login = login;
+;
 //# sourceMappingURL=index.js.map

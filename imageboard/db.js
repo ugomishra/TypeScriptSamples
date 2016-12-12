@@ -20,6 +20,21 @@ function getUser(id, callback) {
     });
 }
 exports.getUser = getUser;
+function createUser(user, callback) {
+    // db.collection('users',)
+}
+exports.createUser = createUser;
+function checkUser(userbody, callback) {
+    db.collection('user', function (error, users) {
+        if (error) {
+            console.error(error);
+            return;
+        }
+        var user = users.find({ name: userbody.name, pass: userbody.password });
+        console.log(user);
+    });
+}
+exports.checkUser = checkUser;
 function getMenus(callback) {
     db.collection('menus', function (error, menus_collection) {
         if (error) {

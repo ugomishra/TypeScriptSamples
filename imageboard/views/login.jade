@@ -1,0 +1,13 @@
+extends menu
+
+block mainContent
+    h1= title
+    form(name="login-form", method="post")
+        div.input
+            span.label username
+            input(type="text", name="name")
+        div.input
+            span.label password
+            input(type="password", name="password")            
+        div.actions
+            input(type="submit", value="add")

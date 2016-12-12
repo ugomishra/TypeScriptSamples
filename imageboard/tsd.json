@@ -6,19 +6,19 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "mime/mime.d.ts": {
-      "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
     },
     "express/express.d.ts": {
-      "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
     },
     "mongodb/mongodb.d.ts": {
       "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
     },
     "node/node.d.ts": {
-      "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
     },
     "method-override/method-override.d.ts": {
       "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
@@ -30,6 +30,12 @@
       "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
     },
     "async/async.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "express-session/express-session.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "express-serve-static-core/express-serve-static-core.d.ts": {
       "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
     }
   }

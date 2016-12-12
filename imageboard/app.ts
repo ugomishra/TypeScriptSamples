@@ -1,8 +1,11 @@
+/// <reference path="globals/_.d.ts" />
+
 import * as http from "http";
 import * as url from "url";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as async from "async";
+import * as session from "express-session";
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 
@@ -13,7 +16,11 @@ import * as globals from "./globals/index";
 var app = express();
 
 // Configuration
-
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set('view options', { layout: false });
@@ -26,6 +33,14 @@ var env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
     app.use(errorHandler());
 }
+
+//authenticate users
+app.use((req, res, next) => {
+    if(!req.session.user_id) {
+        res.render('login', {});
+    }
+    next();
+});
 
 // set menu
 app.use(function(req, res, next){
@@ -51,6 +66,9 @@ app.use(function(req, res, next){
 // Routes
 
 app.get('/', routes.index);
+
+//login
+app.get('/login', routes.login);
 
 app.get('/findImages', (req, res) => {
     console.log('getting images from' + req.query['url']);
